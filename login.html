@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rent Wheels</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Company Name */
+        .company-name {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff0000; /* Red color */
+            /* background-color: #333; */
+            width: 9%;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;right: 9px;
+            position: relative;
+
+        }
+
+        .form-group input:focus {
+            border-color: #ff0000; /* Red color */
+            outline: none;
+        }
+
+        /* Submit Button */
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff0000; /* Red color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-link a {
+            color: #ff0000; /* Red color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #28a745;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Company Name -->
+    <!-- <div class="company-name">Rent Wheels</div> -->
+
+    <!-- Login Form -->
+    <div class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div class="create-account-link">
+            <p>Don't have an account? <a href="index.html">Create Account</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2023 Rent Wheels. All rights reserved.
+    </div>
+
+    <!-- Alert -->
+    <div id="alert" class="alert">Your account has been successfully created!</div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Retrieve stored credentials from localStorage
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            // Validate credentials
+            if (username === storedUsername && password === storedPassword) {
+                localStorage.setItem('isLoggedIn', 'true'); // Set login status
+                window.location.href = 'dashboard.html'; // Redirect to dashboard
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+
+        // Show green alert if account creation was successful
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('accountCreated') === 'true') {
+            const alertDiv = document.getElementById('alert');
+            alertDiv.style.display = 'block';
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 3000); // Hide alert after 3 seconds
+        }
+    </script>
+</body>
+</html>
